@@ -5,11 +5,17 @@ GCloud, kubectl, docker in docker, in a Docker container. What makes this one a 
 One way to run:
 ```
 docker run -it --rm \
--e JSONCREDS='{a whole bunch of stuff that you'd find in a GCP provided JSON keyfile}' \
-sfriedel/gcloud-kubectl
+  -v /var/run/docker.sock:/var/run/docker.sock \ 
+  -e JSONCREDS='{a whole bunch of stuff that you'd find in a GCP provided JSON keyfile}' \
+  sfriedel/gcloud-kubectl
 ```
 
-This will run an interactive container, to authenticate gcloud, run:
+This will run an interactive container; to authenticate gcloud, run:
 ```
 gcloud auth activate-service-account --key-file=/keyfile.json
+```
+
+To authenticate Docker, run:
+```
+echo y | gcloud auth configure-docker
 ```
